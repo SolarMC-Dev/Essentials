@@ -3,14 +3,14 @@ plugins {
 }
 
 dependencies {
-    compileOnly('com.github.milkbowl:VaultAPI:1.7') {
+    compileOnly('gg.solarmc.vault:VaultAPI:1.7') { // Solar
         exclude group: "org.bukkit", module: "bukkit"
     }
     compileOnly 'net.luckperms:api:5.0'
 
-    api 'io.papermc:paperlib:1.0.6'
+    api 'gg.solarmc.paperlib:paperlib:1.0.7-SNAPSHOT' // Solar
 
-    api 'org.bstats:bstats-bukkit:1.8'
+//    api 'org.bstats:bstats-bukkit:1.8' // Solar
 
     implementation 'org.spongepowered:configurate-yaml:4.1.1'
     implementation 'org.checkerframework:checker-qual:3.14.0'
@@ -28,13 +28,13 @@ dependencies {
 
 shadowJar {
     dependencies {
-        include (dependency('io.papermc:paperlib'))
-        include (dependency('org.bstats:bstats-bukkit'))
+        include (dependency('gg.solarmc.paperlib:paperlib')) // Solar
+//        include (dependency('org.bstats:bstats-bukkit')) // Solar
         include (dependency('org.spongepowered:configurate-yaml'))
         include (dependency('org.spongepowered:configurate-core'))
-        include (dependency('org.yaml:snakeyaml'))
+//        include (dependency('org.yaml:snakeyaml')) // Solar
         include (dependency('io.leangen.geantyref:geantyref'))
-        include (dependency('org.checkerframework:checker-qual'))
+//        include (dependency('org.checkerframework:checker-qual')) // Solar
         include (project(':providers:BaseProviders'))
         include (project(':providers:PaperProvider'))
         include (project(':providers:NMSReflectionProvider'))
@@ -43,11 +43,12 @@ shadowJar {
     relocate 'io.papermc.lib', 'com.earth2me.essentials.paperlib'
     relocate 'org.bstats.bukkit', 'com.earth2me.essentials.metrics'
     relocate 'org.spongepowered.configurate', 'com.earth2me.essentials.libs.configurate'
-    relocate 'org.yaml.snakeyaml', 'com.earth2me.essentials.libs.snakeyaml'
+//    relocate 'org.yaml.snakeyaml', 'com.earth2me.essentials.libs.snakeyaml' // Solar
     relocate 'io.leangen.geantyref', 'com.earth2me.essentials.libs.geantyref'
-    relocate 'org.checkerframework', 'com.earth2me.essentials.libs.checkerframework'
+//    relocate 'org.checkerframework', 'com.earth2me.essentials.libs.checkerframework' // Solar
 
     minimize {
         include(dependency('org.checkerframework:checker-qual'))
     }
 }
+

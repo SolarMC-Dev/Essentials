@@ -4,7 +4,7 @@ import com.earth2me.essentials.Essentials;
 import com.earth2me.essentials.economy.EconomyLayer;
 import com.earth2me.essentials.economy.EconomyLayers;
 import com.google.common.collect.ImmutableList;
-import org.bstats.bukkit.Metrics;
+//import org.bstats.bukkit.Metrics; // Solar
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -20,14 +20,15 @@ public class MetricsWrapper {
             "ChatControl",
             "catserver.server.Metrics");
     private static boolean hasWarned = false;
-    private final Essentials ess;
-    private final Metrics metrics;
+    private final Essentials ess; // Solar
+//    private final Metrics metrics;
     private final Map<String, Boolean> commands = new HashMap<>();
     private final Plugin plugin;
 
     public MetricsWrapper(final Plugin plugin, final int pluginId, final boolean includeCommands) {
         this.plugin = plugin;
         this.ess = (Essentials) Bukkit.getPluginManager().getPlugin("Essentials");
+/* Solar start
         this.metrics = new Metrics(plugin, pluginId);
 
         if (metrics.isEnabled()) {
@@ -45,12 +46,14 @@ public class MetricsWrapper {
         // These are included for when bStats is ready to accept this data
         addVersionHistoryChart();
         if (includeCommands) addCommandsChart();
+*/ // Solar end
     }
 
     public void markCommand(final String command, final boolean state) {
-        commands.put(command, state);
+// Solar        commands.put(command, state);
     }
 
+/* Solar start
     public void addCustomChart(final Metrics.CustomChart chart) {
         metrics.addCustomChart(chart);
     }
@@ -183,4 +186,5 @@ public class MetricsWrapper {
 
         return null;
     }
+*/ // Solar end
 }

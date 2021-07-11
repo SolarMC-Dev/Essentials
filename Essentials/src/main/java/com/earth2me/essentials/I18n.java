@@ -23,6 +23,14 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+// Solar start
+import java.io.UncheckedIOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.Objects;
+import java.util.Properties;
+// Solar end
 
 public class I18n implements net.ess3.api.II18n {
     private static final String MESSAGES = "messages";
@@ -44,12 +52,59 @@ public class I18n implements net.ess3.api.II18n {
     private transient ResourceBundle customBundle;
     private transient ResourceBundle localeBundle;
     private transient Map<String, MessageFormat> messageFormatCache = new HashMap<>();
+// Solar start
+    private transient Properties messagesProps;
 
-    public I18n(final IEssentials ess) {
+    private String messagesName(Locale locale) {
+        return "messages_" + locale.getLanguage() + ".properties";
+    }
+
+    private Properties loadMessagesPropsZero(Locale locale) throws IOException {
+        Path messagesFile = dataFolder.resolve(messagesName(locale));
+        if (Files.exists(messagesFile)) {
+            try (InputStream input = Files.newInputStream(messagesFile, StandardOpenOption.READ)) {
+                return loadPropertiesFrom(input);
+            }
+        }
+        URL resource = getClass().getResource("/" + messagesName(locale));
+        if (resource == null) {
+            resource = getClass().getResource("/messages.properties");
+        }
+        try (InputStream resourceStream = resource.openStream()) {
+            Files.copy(resourceStream, messagesFile);
+        }
+        try (InputStream resourceStream = resource.openStream()) {
+            return loadPropertiesFrom(resourceStream);
+        }
+    }
+
+    private void loadMessagesProps(Locale locale) {
+        try {
+            messagesProps = loadMessagesPropsZero(locale);
+        } catch (IOException ex) {
+            throw new UncheckedIOException("Unable to load messages", ex);
+        }
+    }
+
+    private Properties loadPropertiesFrom(InputStream input) throws IOException {
+        Properties props = new Properties();
+        props.load(input);
+        return props;
+    }
+
+    private final Path dataFolder;
+
+    public I18n(final IEssentials ess, Path dataFolder) {
+        this.dataFolder = Objects.requireNonNull(dataFolder, "dataFolder");
         this.ess = ess;
+        defaultBundle = NULL_BUNDLE; 
+        customBundle = NULL_BUNDLE;
+        loadMessagesProps(Locale.ENGLISH);
+/*
         defaultBundle = ResourceBundle.getBundle(MESSAGES, Locale.ENGLISH, new UTF8PropertiesControl());
         localeBundle = defaultBundle;
         customBundle = NULL_BUNDLE;
+*/ // Solar end
     }
 
     public static String tl(final String string, final Object... objects) {
@@ -81,6 +136,15 @@ public class I18n implements net.ess3.api.II18n {
     }
 
     private String translate(final String string) {
+// Solar start
+        if (true) {
+            Object value = messagesProps.get(string);
+            if (value == null) {
+                throw new MissingResourceException("Missing translation for " + string, getClass().getName(), string);
+            }
+            return value.toString();
+        }
+// Solar end
         try {
             try {
                 return customBundle.getString(string);
@@ -128,6 +192,12 @@ public class I18n implements net.ess3.api.II18n {
         messageFormatCache = new HashMap<>();
         Logger.getLogger("Essentials").log(Level.INFO, String.format("Using locale %s", currentLocale.toString()));
 
+// Solar start
+        if (true) {
+            loadMessagesProps(currentLocale);
+            return;
+        }
+// Solar end
         try {
             localeBundle = ResourceBundle.getBundle(MESSAGES, currentLocale, new UTF8PropertiesControl());
         } catch (final MissingResourceException ex) {

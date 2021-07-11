@@ -1,3 +1,4 @@
+/* Solar start - remove whole class; split package
 package net.essentialsx.api.v2.events;
 
 import net.ess3.api.IUser;
@@ -6,9 +7,6 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-/**
- * Called before a user is teleported to spawn via the /spawn command.
- */
 public class UserTeleportSpawnEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
 
@@ -25,32 +23,18 @@ public class UserTeleportSpawnEvent extends Event implements Cancellable {
         this.target = target;
     }
 
-    /**
-     * @return The user who is being teleported to spawn.
-     */
     public IUser getUser() {
         return user;
     }
 
-    /**
-     * @return The user who caused teleport to spawn or null if the teleport was caused by the console.
-     */
     public IUser getController() {
         return controller;
     }
 
-    /**
-     * The {@link #getUser() user's} group used to determine their spawn location.
-     * @return The user's group.
-     */
     public String getSpawnGroup() {
         return spawnGroup;
     }
 
-    /**
-     * The spawn location of the {@link #getUser() user's} {@link #getSpawnGroup() group}.
-     * @return The spawn location of the user's group.
-     */
     public Location getSpawnLocation() {
         return target;
     }
@@ -74,3 +58,4 @@ public class UserTeleportSpawnEvent extends Event implements Cancellable {
         return handlers;
     }
 }
+*/ // Solar end

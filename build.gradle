@@ -2,7 +2,7 @@ plugins {
     id("essentials.parent-build-logic")
 }
 
-group = "net.essentialsx"
+group = "gg.solarmc.essentialsx" // Solar
 version = "2.19.0-SNAPSHOT"
 
 project.ext {

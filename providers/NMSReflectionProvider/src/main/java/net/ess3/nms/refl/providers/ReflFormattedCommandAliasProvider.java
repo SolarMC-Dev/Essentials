@@ -15,12 +15,14 @@ import java.util.List;
 public class ReflFormattedCommandAliasProvider implements FormattedCommandAliasProvider {
 
     private final boolean paper;
+/* Solar start
     private final Field formatStringsField;
     private final MethodHandle buildCommandMethodHandle;
+*/ // Solar end
 
     public ReflFormattedCommandAliasProvider(boolean paper) {
         this.paper = paper;
-
+/* Solar start
         final Class<? extends FormattedCommandAlias> formattedCommandAliasClass;
         Field formatStringsField = null;
         MethodHandle buildCommandMethodHandle = null;
@@ -44,10 +46,13 @@ public class ReflFormattedCommandAliasProvider implements FormattedCommandAliasP
             this.formatStringsField = formatStringsField;
             this.buildCommandMethodHandle = buildCommandMethodHandle;
         }
+*/ // Solar end
     }
 
     @Override
     public List<String> createCommands(FormattedCommandAlias command, CommandSender sender, String[] args) {
+// Solar start
+        return List.of(); /*
         final List<String> commands = new ArrayList<>();
         for (String formatString : getFormatStrings(command)) {
             final String cmd;
@@ -61,19 +66,25 @@ public class ReflFormattedCommandAliasProvider implements FormattedCommandAliasP
             commands.add(cmd.trim());
         }
         return commands;
+*/ // Solar end
     }
 
     @Override
     public String[] getFormatStrings(FormattedCommandAlias command) {
+// Solar start
+        return new String[] {}; /*
         try {
             return (String[]) formatStringsField.get(command);
         } catch (ReflectiveOperationException ex) {
             throw new RuntimeException(ex); // If this happens we have bigger problems...
         }
+*/ // Solar end
     }
 
     @Override
     public String buildCommand(FormattedCommandAlias command, CommandSender sender, String formatString, String[] args) {
+// Solar start
+        return ""; /*
         try {
             if (paper) {
                 return (String) buildCommandMethodHandle.invoke(command, sender, formatString, args);
@@ -83,6 +94,7 @@ public class ReflFormattedCommandAliasProvider implements FormattedCommandAliasP
         } catch (Throwable ex) {
             throw new RuntimeException(ex); // If this happens we have bigger problems...
         }
+*/ // Solar end
     }
 
     @Override

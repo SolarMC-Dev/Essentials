@@ -3,7 +3,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 plugins {
     id("java")
     id("net.kyori.indra")
-    id("net.kyori.indra.checkstyle")
+//    id("net.kyori.indra.checkstyle") // Solar
     id("net.kyori.indra.publishing")
 }
 
@@ -73,13 +73,15 @@ configurations.all {
 }
 
 indra {
-    checkstyle(checkstyleVersion)
+//    checkstyle(checkstyleVersion) // Solar
 
     github("EssentialsX", "Essentials")
     gpl3OnlyLicense()
 
-    publishReleasesTo("essx", "https://repo.essentialsx.net/releases/")
-    publishSnapshotsTo("essx", "https://repo.essentialsx.net/snapshots/")
+// Solar start
+    publishReleasesTo("solarRepo", "https://mvn-repo.solarmc.gg/releases/")
+    publishSnapshotsTo("solarRepo", "https://mvn-repo.solarmc.gg/snapshots/")
+// Solar end
 
     configurePublications {
         pom {
@@ -107,7 +109,7 @@ indra {
     }
 
     javaVersions {
-        target(8)
+        target(16) // Solar
         minimumToolchain(16)
     }
 }

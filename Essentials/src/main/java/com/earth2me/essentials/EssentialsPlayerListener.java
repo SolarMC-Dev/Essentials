@@ -558,10 +558,12 @@ public class EssentialsPlayerListener implements Listener {
             final Command knownCommand = ess.getKnownCommandsProvider().getKnownCommands().get(cmd);
             if (knownCommand instanceof FormattedCommandAlias) {
                 final FormattedCommandAlias command = (FormattedCommandAlias) knownCommand;
+/* Solar start - got junk?
                 for (String fullCommand : ess.getFormattedCommandAliasProvider().createCommands(command, event.getPlayer(), args.split(" "))) {
                     handlePlayerCommandPreprocess(event, fullCommand);
                 }
                 return;
+*/ // Solar end
             }
         }
 

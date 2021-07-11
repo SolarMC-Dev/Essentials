@@ -1,5 +1,6 @@
 dependencyResolutionManagement {
     repositories {
+/* Solar start
         maven("https://hub.spigotmc.org/nexus/content/groups/public/")
         maven("https://papermc.io/repo/repository/maven-public/")
         maven("https://jitpack.io") {
@@ -17,6 +18,18 @@ dependencyResolutionManagement {
         mavenCentral {
             content { includeGroup("net.kyori") }
         }
+*/      mavenCentral()
+// Unfortunately we still need org-specific repositories
+        maven("https://hub.spigotmc.org/nexus/content/groups/public/")
+        maven("https://papermc.io/repo/repository/maven-public/")
+        maven("https://m2.dv8tion.net/releases/") {
+            content { includeGroup("net.dv8tion") }
+        }
+        maven("https://mvn-repo.solarmc.gg/releases")
+        maven("https://mvn-repo.solarmc.gg/snapshots")
+        maven("https://mvn-repo.arim.space/lesser-gpl3")
+        maven("https://mvn-repo.arim.space/gpl3")
+// Solar end
     }
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
 }

@@ -1025,6 +1025,18 @@ public final class FakeServer implements Server {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    // Solar start
+    @Override
+    public Recipe getCraftingRecipe(ItemStack[] craftingMatrix, World world) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public ItemStack craftItem(ItemStack[] craftingMatrix, World world, Player player) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    // Solar end
+
     @Override
     public Iterator<Recipe> recipeIterator() {
         throw new UnsupportedOperationException("Not supported yet.");

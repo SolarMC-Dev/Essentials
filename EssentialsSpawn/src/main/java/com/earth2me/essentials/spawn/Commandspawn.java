@@ -7,7 +7,7 @@ import com.earth2me.essentials.User;
 import com.earth2me.essentials.commands.EssentialsCommand;
 import com.earth2me.essentials.commands.NoChargeException;
 import com.earth2me.essentials.commands.NotEnoughArgumentsException;
-import net.essentialsx.api.v2.events.UserTeleportSpawnEvent;
+//import net.essentialsx.api.v2.events.UserTeleportSpawnEvent; // Solar
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
@@ -78,11 +78,13 @@ public class Commandspawn extends EssentialsCommand {
             showError(sender.getSender(), e, commandLabel);
             return false;
         });
+/* Solar start
         final UserTeleportSpawnEvent spawnEvent = new UserTeleportSpawnEvent(teleportee, teleportOwner, teleportee.getGroup(), spawn);
         ess.getServer().getPluginManager().callEvent(spawnEvent);
         if (spawnEvent.isCancelled()) {
             return;
         }
+*/ // Solar end
         if (teleportOwner == null) {
             teleportee.getAsyncTeleport().now(spawn, false, TeleportCause.COMMAND, future);
             return;

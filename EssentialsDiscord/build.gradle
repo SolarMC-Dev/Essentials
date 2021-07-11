@@ -10,8 +10,8 @@ dependencies {
     }
     implementation 'com.vdurmont:emoji-java:5.1.1'
     implementation 'club.minnced:discord-webhooks:0.5.6'
-    compileOnly 'org.apache.logging.log4j:log4j-core:2.0-beta9'
-    compileOnly 'me.clip:placeholderapi:2.10.9'
+    compileOnly 'org.apache.logging.log4j:log4j-core:2.14.1' // Solar
+    compileOnly 'gg.solarmc.placeholder:placeholderapi:2.10.10-DEV-SNAPSHOT' // Solar
 }
 
 shadowJar {

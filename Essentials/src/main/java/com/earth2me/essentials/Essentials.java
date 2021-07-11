@@ -132,7 +132,7 @@ import java.util.logging.Logger;
 import static com.earth2me.essentials.I18n.tl;
 
 public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
-    private static final Logger LOGGER = Logger.getLogger("Essentials");
+    private static final Logger LOGGER = Logger.getLogger(Essentials.class.getName()); // Solar - use proper logger
     private final transient TNTExplodeListener tntListener = new TNTExplodeListener(this);
     private final transient Set<String> vanishedPlayers = new LinkedHashSet<>();
     private transient ISettings settings;
@@ -198,7 +198,7 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
         if (!dataFolder.mkdir()) {
             throw new IOException();
         }
-        i18n = new I18n(this);
+        i18n = new I18n(this, dataFolder.toPath()); // Solar
         i18n.onEnable();
         i18n.updateLocale("en");
         Console.setInstance(this);
@@ -232,11 +232,11 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
     public void onEnable() {
         try {
             if (LOGGER != this.getLogger()) {
-                LOGGER.setParent(this.getLogger());
+                // LOGGER.setParent(this.getLogger()); // Solar - disable
             }
             execTimer = new ExecuteTimer();
             execTimer.start();
-            i18n = new I18n(this);
+            i18n = new I18n(this, getDataFolder().toPath()); // Solar
             i18n.onEnable();
             execTimer.mark("I18n1");
 
@@ -403,7 +403,7 @@ public class Essentials extends JavaPlugin implements net.ess3.api.IEssentials {
             if (VersionUtil.getServerBukkitVersion().isHigherThanOrEqualTo(VersionUtil.v1_14_4_R01)) {
                 persistentDataProvider = new ModernPersistentDataProvider(this);
             } else {
-                persistentDataProvider = new ReflPersistentDataProvider(this);
+                persistentDataProvider = new ModernPersistentDataProvider(this); // Solar
             }
 
             execTimer.mark("Init(Providers)");
